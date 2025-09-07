@@ -12,3 +12,12 @@
   font-weight: 400;
   font-style: normal;
 }
+
+/* Theme control */
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #CAEB66;
+  --color-secondary: #03373D;
+  --color-accent: #606060;
+}
