@@ -15,7 +15,7 @@ const LogosSection = () => {
         <section className="py-16">
             <div className="max-w-7xl mx-auto px-4 text-center">
                 {/* Title */}
-                <h2 className="text-3xl font-bold mb-8">
+                <h2 className="text-3xl font-bold mb-8 text-secondary">
                     We&apos;ve helped thousands of <span className="text-primary">sales teams</span>
                 </h2>
 
