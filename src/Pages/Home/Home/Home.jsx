@@ -6,6 +6,7 @@ import LogosSection from '../LogosSection/LogosSection';
 import FeatureSection from '../FeatureSection/FeatureSection';
 import MerchantSection from '../MerchantSection/MerchantSection';
 import ReviewsSection from '../ReviewsSection/ReviewsSection';
+import FAQSection from '../FAQSection/FAQSection';
 
 const Home = () => {
     return (
@@ -17,6 +18,7 @@ const Home = () => {
             <FeatureSection></FeatureSection>
             <MerchantSection></MerchantSection>
             <ReviewsSection></ReviewsSection>
+            <FAQSection></FAQSection>
         </div>
     );
 };
