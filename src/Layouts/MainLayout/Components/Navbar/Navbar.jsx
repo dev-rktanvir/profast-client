@@ -52,11 +52,11 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 {user ? (
-                    <button onClick={handleLogout} className="btn btn-outline">
+                    <button onClick={handleLogout} className="px-6 py-2 bg-primary text-secondary rounded-lg font-bold">
                         Logout
                     </button>
                 ) : (
-                    <Link to="/login" className="btn text-secondary btn-primary">
+                    <Link to="/login" className="px-6 py-2 bg-primary text-secondary rounded-lg font-bold">
                         Login
                     </Link>
                 )}

@@ -21,3 +21,9 @@
   --color-secondary: #03373D;
   --color-accent: #606060;
 }
+a.active {
+  padding: 10 15;
+  background-color: #CAEB66 ;
+  color: #03373D;
+  border-radius: 50px;
+}
