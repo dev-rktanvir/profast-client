@@ -1,8 +1,31 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import Logo from '../Logo/Logo';
+import useAuth from '../../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+    const { user, logoutUser } = useAuth();
+    const handleLogout = () => {
+        logoutUser()
+            .then(result => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Logged Out",
+                    text: "You have been logged out successfully.",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Logout Failed",
+                    text: error.message || "Something went wrong. Please try again.",
+                    confirmButtonColor: "#dc2626", // Tailwind red-600
+                });
+            });
+    }
     const links = <>
         <li><NavLink to='/services'>Services</NavLink></li>
         <li><NavLink to='/coverage'>Coverage</NavLink></li>
@@ -28,7 +51,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {user ? (
+                    <button onClick={handleLogout} className="btn btn-outline">
+                        Logout
+                    </button>
+                ) : (
+                    <Link to="/login" className="btn text-secondary btn-primary">
+                        Login
+                    </Link>
+                )}
             </div>
         </div>
     );
