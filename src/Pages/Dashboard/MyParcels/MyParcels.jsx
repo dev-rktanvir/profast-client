@@ -4,10 +4,12 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaTrash, FaInfoCircle, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const MyParcels = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const { data: parcels = [], refetch } = useQuery({
         queryKey: ['my-parcels', user.email],
@@ -43,6 +45,10 @@ const MyParcels = () => {
             }
         });
     };
+
+    const handlePay = (id) => {
+        navigate(`/dashboard/payment/${id}`)
+    }
 
     return (
         <div>
@@ -113,11 +119,13 @@ const MyParcels = () => {
                                         <FaInfoCircle /> Details
                                     </button>
                                     <button
-                                        className={`btn btn-sm ${parcel.paid ? "btn-warning" : "btn-success"
+                                        className={`btn btn-sm ${parcel.payment_status === "unpaid" ? "btn-warning" : "btn-success"
                                             } text-white`}
+                                        onClick={() => handlePay(parcel._id)}
                                     >
-                                        {parcel.paid ? "Mark Unpaid" : "Mark Paid"}
+                                        {parcel.payment_status === "unpaid" ? "Please Pay" : "Paid"}
                                     </button>
+
                                     <button
                                         className="btn btn-sm btn-error text-white flex items-center gap-1"
                                         onClick={() => handleDelete(parcel._id)}

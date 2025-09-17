@@ -1,12 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import GoogleLoginButton from "../../../Layouts/MainLayout/Components/GoogleLoginButton/GoogleLoginButton";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 
 const Login = () => {
     const { loginUser } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -22,6 +24,7 @@ const Login = () => {
                     text: "Welcome back!",
                     timer: 1500
                 });
+                navigate(location?.state || '/');
             })
             .catch(error => {
                 Swal.fire({

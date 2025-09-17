@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import GoogleLoginButton from "../../../Layouts/MainLayout/Components/GoogleLoginButton/GoogleLoginButton";
 import profileImg from "../../../assets/image-upload-icon.png";
 import useAuth from "../../../hooks/useAuth";
@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 
 const Register = () => {
     const { createUser } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -27,6 +29,7 @@ const Register = () => {
                     confirmButtonColor: "#2563eb", // Tailwind Blue-600
                 });
                 reset();
+                navigate(location?.state || '/');
             })
             .catch(error => {
                 Swal.fire({

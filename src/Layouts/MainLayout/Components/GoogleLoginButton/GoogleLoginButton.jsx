@@ -2,9 +2,11 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import {useNavigate } from "react-router";
 
 const GoogleLoginButton = () => {
     const { loginWithGoogle } = useAuth()
+    const navigate = useNavigate();
 
     const handleGoogleLogin = () => {
         loginWithGoogle()
@@ -15,6 +17,7 @@ const GoogleLoginButton = () => {
                     text: "Welcome back!",
                     timer: 1500
                 });
+                navigate(location?.state || '/');
             })
             .catch(error => {
                 Swal.fire({
