@@ -5,7 +5,7 @@ import "swiper/css";
 import { Autoplay } from "swiper/modules";
 
 // Fetch testimonials data
-const testimonialsPromiss = fetch("reviews.json").then((res) => res.json());
+const testimonialsPromiss = fetch("/reviews.json").then((res) => res.json());
 
 const ReviewsSection = () => {
     const testimonials = use(testimonialsPromiss);
