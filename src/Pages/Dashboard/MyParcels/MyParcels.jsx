@@ -102,7 +102,7 @@ const MyParcels = () => {
                                     </div>
                                 </td>
                                 <td>
-                                    {parcel.paid ? (
+                                    {parcel.payment_status === "paid" ? (
                                         <span className="text-green-600 flex items-center gap-1">
                                             <FaCheckCircle /> Paid
                                         </span>
@@ -122,6 +122,7 @@ const MyParcels = () => {
                                         className={`btn btn-sm ${parcel.payment_status === "unpaid" ? "btn-warning" : "btn-success"
                                             } text-white`}
                                         onClick={() => handlePay(parcel._id)}
+                                        disabled={parcel.payment_status  === "paid"}
                                     >
                                         {parcel.payment_status === "unpaid" ? "Please Pay" : "Paid"}
                                     </button>

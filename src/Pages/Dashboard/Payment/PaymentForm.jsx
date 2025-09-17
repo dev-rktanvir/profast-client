@@ -1,8 +1,9 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAuth from '../../../hooks/useAuth';
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -26,7 +27,9 @@ const PaymentForm = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState("");
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
     const { parcelId } = useParams();
+    const navigate = useNavigate();
 
     const { data: parcelInfo = {} } = useQuery({
         queryKey: ['parcels', parcelId],
@@ -80,7 +83,19 @@ const PaymentForm = () => {
             if (result.paymentIntent.status === "succeeded") {
                 setSuccess("Payment Successful!");
                 setError("");
-                // চাইলে এখানে MongoDB তে order info save করবে
+                // mark parcel paid also create payment history
+                const paymentData = {
+                    parcelId,
+                    email: user.email,
+                    amount,
+                    transactionId: result.paymentIntent.id,
+                    paymentMethod: result.paymentIntent.payment_method_types 
+                }
+                const paymentRes = await axiosSecure.post('/payments', paymentData)
+                if(paymentRes.data.insertedId){
+                    console.log('payment successfully');
+                    navigate('/dashboard/my-parcels');
+                }
             }
         }
     };
